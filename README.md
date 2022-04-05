@@ -1,2 +1,2 @@
 This is the read me for the ATM_Project.
-adding the first commit.
+adding the first commit. commit 2 
