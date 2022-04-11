@@ -1,0 +1,90 @@
+using System;
+namespace Info350
+{
+    public class EmptyClass
+    {
+        public static void Main(string[] args)
+        {
+            int funding = 5000, deposit, withdraw;
+            int option;
+            int pin = 0;
+            int[] input = new int[4];
+        
+            Console.WriteLine("Please enter your 4 letter pin code ");
+
+            pin = int.Parse(Console.ReadLine());
+            input[0] = pin;
+
+            while (true)
+            {
+
+                ////////////////////////////////////This is going over the options for the ATM
+                Console.WriteLine("Welcome to the Goaldiggers ATM");
+                Console.WriteLine("1. Current Balance");
+                Console.WriteLine("2. Withdraw ");
+                Console.WriteLine("3. Deposit ");
+                Console.WriteLine("4. Cancel ");
+                Console.WriteLine("---------------------------");
+                Console.WriteLine("Please choose from the following options: ");
+                
+
+
+                ///////// This is a selection statement going over the following options
+
+                option = int.Parse(Console.ReadLine());
+                input[1]= option ;
+
+                
+                switch (option)
+                    
+                {
+                    case 1:
+                        Console.WriteLine("Your current balance is: {0} ", funding);
+                        break;
+                    case 2:
+                        Console.WriteLine("Please enter an amount you would like to withdrawl: ");
+                        withdraw = int.Parse(Console.ReadLine());
+                        input[2] = withdraw;
+                        
+                        
+                        
+                        if (withdraw % 100 != 0)
+                        {
+                            Console.WriteLine("Withdrawl amount must be more than 100");
+                        }
+                        else if (withdraw > (funding - 1000))
+                        {
+                            Console.WriteLine("Insufficient Funds");
+                        }
+                        else
+                        {
+                            funding = funding - withdraw;
+                            Console.WriteLine("Please collect cash dispensed below");
+                            Console.WriteLine("Current Balance : {0}", funding);
+                        }
+                        break;
+                    case 3:
+                        Console.WriteLine("How much would you like to deposit?");
+                        deposit = int.Parse(Console.ReadLine());
+                        
+                        funding = funding + deposit;
+                        Console.WriteLine("The amount has succusfully been deposited");
+                        Console.WriteLine("Current Balance : {0}", funding);
+                        break;
+                    case 4:
+                        Console.WriteLine("Thank you!");
+                        break;
+
+                }
+                
+
+
+                Console.Write("Would you like to do another transaction? 1 for Yes or 2 for no: ");
+                int Continue = int.Parse(Console.ReadLine());
+                input[3] = Continue;
+                
+
+            }
+        }
+    }
+}
