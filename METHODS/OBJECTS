@@ -1,0 +1,195 @@
+using System;
+using System.Threading;
+namespace Finallllll
+{
+    class Program
+    {
+        public static char classaccount = ' ';
+        static int funding = 5000, deposit, withdraw;
+        static int option;
+
+
+
+
+        static char[] Account =
+        {
+            '1', '2', '3','4'
+        }; //number of options within the ATM
+        public static void ATMRESET() //If this method is called then the ATM resets.  
+        {
+            char[] AccountInitialize =
+            {
+                '1', '2', '3','4'
+            };
+            Account = AccountInitialize;
+            Pin();
+
+
+        }
+
+        public static void Pin()
+        {
+            Console.WriteLine("Please enter your 4 letter pin code ");
+
+            string pass = "";
+
+            ConsoleKeyInfo key;
+
+            do
+            {
+                key = Console.ReadKey(true);
+                if (key.Key != ConsoleKey.Backspace)
+                {
+                    pass += key.KeyChar;
+                    Console.Write("*");
+                }
+                else
+                {
+                    Console.Write("\b");
+                }
+            }
+            while (key.Key != ConsoleKey.Enter);
+        } //this creates the pin
+
+        static void Main(string[] args)
+        {
+            int cases = 2;
+
+            bool optionCorrect = true;
+
+            Pin();
+            do //Alternates player turns.
+            {
+                if (cases == 4)
+                {
+                    cases = 4;
+                    Choice(cases, option);
+                }
+                else if (cases == 2)
+                {
+                    cases = 2;
+                    Choice(cases, option);
+                }
+
+                Console.WriteLine("Welcome to the Goaldiggers ATM");
+                Console.WriteLine("1. Current Balance");
+                Console.WriteLine("2. Withdraw ");
+                Console.WriteLine("3. Deposit ");
+                Console.WriteLine("4. Cancel ");
+                Console.WriteLine("---------------------------");
+              
+                //////These are the following options
+                ///
+
+                do
+                {
+                    Console.WriteLine("Please choose from the following options: ", Account);
+                    try
+                    {
+                        option = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Please enter a option");
+                    }
+
+                    if ((option == 1) && (Account[0] == '1'))
+                        optionCorrect = true;
+                    else if ((option == 2) && (Account[1] == '2'))
+                        optionCorrect = true;
+                    else if ((option == 3) && (Account[2] == '3'))
+                        optionCorrect = true;
+                    else if ((option == 4) && (Account[3] == '4'))
+                        optionCorrect = true;
+                    else
+                    {
+                        Console.WriteLine("Sorry, Please try again- I didnt quite catch that.");
+                        optionCorrect = false;
+
+                    }
+
+
+
+                } while (!optionCorrect);
+            } while (true);
+        }
+
+
+        public static void Choice(int cases, int option)
+        {
+            double funding = 5000;
+            int deposit;
+            int withdraw;
+
+            switch (option)
+
+            {
+
+                case 1:
+                    Console.WriteLine("Your current balance is: {0} ", funding);
+                    break;
+
+                case 2:
+                    Console.WriteLine("Please enter an amount you would like to withdrawl: ");
+                    withdraw = int.Parse(Console.ReadLine());
+
+
+                    if (withdraw < 0)
+                    {
+                        Console.WriteLine("Withdraw must be greater than 0. Please try again!");
+                        Console.WriteLine("Please enter an amount you would like to withdrawl: ");
+                        withdraw = int.Parse(Console.ReadLine());
+                    }
+
+                    if (withdraw % 100 != 0)
+                    {
+                        Console.WriteLine("Withdrawl amount must be increments of 100");
+                    }
+                    else if (withdraw > (funding - 1000))
+                    {
+                        Console.WriteLine("Insufficient Funds");
+                    }
+                    else
+                    {
+                        funding = funding - withdraw;
+                        Console.WriteLine("Please collect cash dispensed below");
+                        Console.WriteLine("Current Balance : {0}", funding);
+                    }
+                    break;
+
+
+                case 3:
+                    Console.WriteLine("How much would you like to deposit?");
+                    deposit = int.Parse(Console.ReadLine());
+
+                    if (deposit < 0)
+                    {
+                        Console.WriteLine("Deposit must be greater than 0. Please try again!");
+                        Console.WriteLine("How much would you like to deposit?");
+                        deposit = int.Parse(Console.ReadLine());
+
+                    }
+
+                    funding = funding + deposit;
+                    Console.WriteLine("The amount has succusfully been deposited");
+                    Console.WriteLine("Current Balance : {0}", funding);
+                    break;
+
+                case 4:
+                    Console.WriteLine("Thank you! Have a good day!");
+                    break;
+
+            }
+        }
+        public static void Done() /////This will reset the ATM///////
+        {
+            {
+                Console.Write("Would you like to do another transaction? 1 for Yes or 2 for no: ");
+                Console.ReadKey();
+                ATMRESET();
+            }
+        }
+
+    }
+}
+
